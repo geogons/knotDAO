@@ -4,7 +4,8 @@ import { Box, Button, Flex, Input, Text } from '@chakra-ui/react';
 
 import KnotDAO from './KnotDAO.json';
 
-const KnotDAOAddress = '0xe49FcD896EbDc140877c14203523268881c68AB1';
+//const KnotDAOAddress = '0xe49FcD896EbDc140877c14203523268881c68AB1';
+const KnotDAOAddress = '0x8E0E55769a464AA768088b7781DFB92D1Ba63065';
 
 const MainMint = ({ accounts, setAccounts }) => {
   const [mintAmount, setMintAmount] = useState(1);

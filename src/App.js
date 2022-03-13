@@ -3,6 +3,7 @@ import './App.css';
 import MainMint from './MainMint';
 import NavBar from './NavBar';
 
+//TODO capture contract errors and show relevant messages
 function App() {
   const [accounts, setAccounts] = useState([]);
   return (
