@@ -9,5 +9,5 @@ https://rinkeby.etherscan.io/address/0xe49fcd896ebdc140877c14203523268881c68ab1
 
 v2: 0x8E0E55769a464AA768088b7781DFB92D1Ba63065
 
-Deployed:
-
+Deployed app:
+https://knot-dao-7aedxfpl2-geogons.vercel.app/
