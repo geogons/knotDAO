@@ -9,7 +9,8 @@ import "@openzeppelin/contracts/interfaces/IERC2981.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 
-//ADD isSaleActive?
+//TODO add isSaleActive? view function
+
 contract KnotDAO is ERC721, IERC2981, ReentrancyGuard, Ownable {
   using Counters for Counters.Counter;
 
@@ -23,7 +24,7 @@ contract KnotDAO is ERC721, IERC2981, ReentrancyGuard, Ownable {
 
   mapping(address => uint256) private allowedMintCountMap;
 
-  uint256 public constant MINT_LIMIT_PER_WALLET = 5;
+  uint256 public constant MINT_LIMIT_PER_WALLET = 50;
 
   function allowedMintCount(address minter) public view returns (uint256) {
     return MINT_LIMIT_PER_WALLET - mintCountMap[minter];
@@ -67,6 +68,17 @@ contract KnotDAO is ERC721, IERC2981, ReentrancyGuard, Ownable {
     }
   }
 
+  function mintReserved(uint256 count) external onlyOwner {
+
+    require(totalSupply() + count - 1 < MAX_SUPPLY, "Exceeds max supply");
+
+    for (uint256 i = 0; i < count; i++) {
+      _mint(msg.sender, totalSupply());
+
+      supplyCounter.increment();
+    }
+  }
+
   function totalSupply() public view returns (uint256) {
     return supplyCounter.current();
   }
@@ -89,6 +101,12 @@ contract KnotDAO is ERC721, IERC2981, ReentrancyGuard, Ownable {
 
   function _baseURI() internal view virtual override returns (string memory) {
     return customBaseURI;
+  }
+
+   function tokenURI(uint256 tokenId) public view override
+    returns (string memory)
+  {
+    return string(abi.encodePacked(super.tokenURI(tokenId), ".token.json"));
   }
 
   /** PAYOUT **/
